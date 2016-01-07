@@ -1,6 +1,7 @@
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        #'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
         'NAME': 'app_tvof_dev',
         'USER': 'app_tvof',
         'PASSWORD': 'Wh1teR4bbit',
