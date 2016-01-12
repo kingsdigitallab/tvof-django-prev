@@ -3,7 +3,7 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{% block meta_title %}{% endblock %} | The Values of French</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,55 +11,43 @@
   {% compress css %}
   <link rel="stylesheet" type="text/x-scss" href="{% static 'scss/main.scss' %}">
   <link rel="stylesheet" type="text/x-scss" href="{% static 'vendor/font-awesome/scss/font-awesome.scss' %}">  
-
-
   {% endcompress %}
 
   {% block extra_head %}
   {% endblock %}
-
 </head>
+
 <body>
+  <header>
+    {% include 'includes/header.html' %}
+  </header>
 
-<header>
-  {% include 'includes/header.html' %}
-</header>
+  <nav>
+    {% include 'includes/navigation.html' %}
+  </nav>
 
-<nav>
+  <section class="main">
+    <div class="row">
+      <div class="large-12 columns">
+        {% block main %}
+        {% endblock %}
+      </div>
+    </div>
+  </section>
 
-  {% include 'includes/navigation.html' %}
+  <footer>
+    {% include 'includes/footer.html' %}
+  </footer>
 
-</nav>
+  <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/foundation-sites/dist/foundation.min.js' %}"></script>
 
-<section class="main">
+  {% compress js %}
+  <script src="{% static 'js/app.js' %}"></script>
+  {% endcompress %}
 
-        <div class="large-12 columns">
-          {% block title %} hello {% endblock %}
-          {% block main %}
-          {% endblock %}
-        </div>
-
-</section>
-
-
-
-<footer>
-  {% include 'includes/footer.html' %}
-</footer>
-
-
-<script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
-<script src="{% static 'vendor/foundation-sites/dist/foundation.min.js' %}"></script>
-<!--<script src="{% static 'temp/js/foundation.min.js' %}"></script>-->
-
-{% compress js %}
-<script src="{% static 'js/app.js' %}"></script>
-{% endcompress %}
-
-<script>
-  $(document).foundation();
-</script>
-
-
+  <script>
+    $(document).foundation();
+  </script>
 </body>
 </html>

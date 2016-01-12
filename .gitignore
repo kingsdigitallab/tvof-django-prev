@@ -59,8 +59,9 @@ target/
 
 # Database
 *.sql
+*.backup
 
 #local
 .vagrant/
-hgl/settings/local.py
+local.py
 static/
