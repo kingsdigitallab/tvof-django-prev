@@ -19,14 +19,14 @@
     this.options = $.extend({}, Tabs.defaults, this.$element.data(), options);
 
     this._init();
-    Foundation.registerPlugin(this, 'Tabs');
+    Foundation.registerPlugin(this);
     Foundation.Keyboard.register('Tabs', {
       'ENTER': 'open',
       'SPACE': 'open',
       'ARROW_RIGHT': 'next',
       'ARROW_UP': 'previous',
       'ARROW_DOWN': 'next',
-      'ARROW_LEFT': 'previous'
+      'ARROW_LEFT': 'previous',
       // 'TAB': 'next',
       // 'SHIFT_TAB': 'previous'
     });
@@ -139,8 +139,8 @@
    */
   Tabs.prototype._addClickHandler = function(){
     var _this = this;
-    this.$element.off('click.zf.tabs')
-                   .on('click.zf.tabs', '.' + this.options.linkClass, function(e){
+    this.$tabTitles.off('click.zf.tabs')
+                   .on('click.zf.tabs', function(e){
                      e.preventDefault();
                      e.stopPropagation();
                      if($(this).hasClass('is-active')){
@@ -160,7 +160,6 @@
     var $lastTab = _this.$element.find('li:last-of-type');
 
     this.$tabTitles.off('keydown.zf.tabs').on('keydown.zf.tabs', function(e){
-      if(e.which === 9) return;
       e.stopPropagation();
       e.preventDefault();
 
@@ -183,7 +182,7 @@
       });
 
       // handle keyboard event with keyboard util
-      Foundation.Keyboard.handleKey(e, 'Tabs', {
+      Foundation.Keyboard.handleKey(e, _this, {
         open: function() {
           $element.find('[role="tab"]').focus();
           _this._handleTabChange($element);

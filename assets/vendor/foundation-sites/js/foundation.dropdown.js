@@ -17,7 +17,7 @@
     this.options = $.extend({}, Dropdown.defaults, this.$element.data(), options);
     this._init();
 
-    Foundation.registerPlugin(this, 'Dropdown');
+    Foundation.registerPlugin(this);
     Foundation.Keyboard.register('Dropdown', {
       'ENTER': 'open',
       'SPACE': 'open',
@@ -40,12 +40,6 @@
      * @example false
      */
     hover: false,
-    /**
-     * Don't close dropdown when hovering over dropdown pane
-     * @option
-     * @example true
-     */
-    hoverPane: false,
     /**
      * Number of pixels between the dropdown pane and the triggering element on open.
      * @option
@@ -75,13 +69,7 @@
      * @option
      * @example true
      */
-    autoFocus: false,
-    /**
-     * Allows a click on the body to close the dropdown.
-     * @option
-     * @example true
-     */
-    closeOnClick: false
+    autoFocus: false
   };
   /**
    * Initializes the plugin by setting/checking options and attributes, adding helper variables, and saving the anchor.
@@ -180,7 +168,7 @@
     if(($eleDims.width >= $eleDims.windowDims.width) || (!this.counter && !Foundation.Box.ImNotTouchingYou(this.$element))){
       this.$element.offset(Foundation.Box.GetOffsets(this.$element, this.$anchor, 'center bottom', this.options.vOffset, this.options.hOffset, true)).css({
         'width': $eleDims.windowDims.width - (this.options.hOffset * 2),
-        'height': 'auto'
+        'height': 'auto',
       });
       this.classChanged = true;
       return false;
@@ -211,62 +199,46 @@
       this.$anchor.off('mouseenter.zf.dropdown mouseleave.zf.dropdown')
           .on('mouseenter.zf.dropdown', function(){
             clearTimeout(_this.timeout);
-            _this.timeout = setTimeout(function(){
+            _this.timeOut = setTimeout(function(){
               _this.open();
               _this.$anchor.data('hover', true);
             }, _this.options.hoverDelay);
           }).on('mouseleave.zf.dropdown', function(){
             clearTimeout(_this.timeout);
-            _this.timeout = setTimeout(function(){
+            _this.timeOut = setTimeout(function(){
               _this.close();
               _this.$anchor.data('hover', false);
             }, _this.options.hoverDelay);
           });
-      if(this.options.hoverPane){
-        this.$element.off('mouseenter.zf.dropdown mouseleave.zf.dropdown')
-            .on('mouseenter.zf.dropdown', function(){
-              clearTimeout(_this.timeout);
-            }).on('mouseleave.zf.dropdown', function(){
-              clearTimeout(_this.timeout);
-              _this.timeout = setTimeout(function(){
-                _this.close();
-                _this.$anchor.data('hover', false);
-              }, _this.options.hoverDelay);
-            });
-      }
     }
     this.$anchor.add(this.$element).on('keydown.zf.dropdown', function(e) {
 
-      var $target = $(this),
-        visibleFocusableElements = Foundation.Keyboard.findFocusable(_this.$element);
+      var visibleFocusableElements = Foundation.Keyboard.findFocusable(_this.$element);
 
-      Foundation.Keyboard.handleKey(e, 'Dropdown', {
+      Foundation.Keyboard.handleKey(e, _this, {
         tab_forward: function() {
-          if (_this.$element.find(':focus').is(visibleFocusableElements.eq(-1))) { // left modal downwards, setting focus to first element
-            if (_this.options.trapFocus) { // if focus shall be trapped
+          if (this.$element.find(':focus').is(visibleFocusableElements.eq(-1))) { // left modal downwards, setting focus to first element
+            if (this.options.trapFocus) { // if focus shall be trapped
               visibleFocusableElements.eq(0).focus();
               e.preventDefault();
             } else { // if focus is not trapped, close dropdown on focus out
-              _this.close();
+              this.close();
             }
           }
         },
         tab_backward: function() {
-          if (_this.$element.find(':focus').is(visibleFocusableElements.eq(0)) || _this.$element.is(':focus')) { // left modal upwards, setting focus to last element
-            if (_this.options.trapFocus) { // if focus shall be trapped
+          if (this.$element.find(':focus').is(visibleFocusableElements.eq(0)) || this.$element.is(':focus')) { // left modal upwards, setting focus to last element
+            if (this.options.trapFocus) { // if focus shall be trapped
               visibleFocusableElements.eq(-1).focus();
               e.preventDefault();
             } else { // if focus is not trapped, close dropdown on focus out
-              _this.close();
+              this.close();
             }
           }
         },
         open: function() {
-          if ($target.is(_this.$anchor)) {
-            _this.open();
-            _this.$element.attr('tabindex', -1).focus();
-            e.preventDefault();
-          }
+          _this.open();
+          _this.$element.attr('tabindex', -1).focus();
         },
         close: function() {
           _this.close();
@@ -274,26 +246,6 @@
         }
       });
     });
-  };
-  /**
-   * Adds an event handler to the body to close any dropdowns on a click.
-   * @function
-   * @private
-   */
-  Dropdown.prototype._addBodyHandler = function(){
-     var $body = $(document.body).not(this.$element),
-         _this = this;
-     $body.off('click.zf.dropdown')
-          .on('click.zf.dropdown', function(e){
-            if(_this.$anchor.is(e.target) || _this.$anchor.find(e.target).length) {
-              return;
-            }
-            if(_this.$element.find(e.target).length) {
-              return;
-            }
-            _this.close();
-            $body.off('click.zf.dropdown');
-          });
   };
   /**
    * Opens the dropdown pane, and fires a bubbling event to close other dropdowns.
@@ -314,7 +266,7 @@
     this._setPosition();
     this.$element.addClass('is-open')
         .attr({'aria-hidden': false});
-
+        
     if(this.options.autoFocus){
       var $focusable = Foundation.Keyboard.findFocusable(this.$element);
       if($focusable.length){
@@ -322,7 +274,6 @@
       }
     }
 
-    if(this.options.closeOnClick){ this._addBodyHandler(); }
 
     /**
      * Fires once the dropdown is visible.

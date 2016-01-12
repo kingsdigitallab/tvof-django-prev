@@ -21,7 +21,7 @@ function ResponsiveToggle(element, options) {
   this._init();
   this._events();
 
-  Foundation.registerPlugin(this, 'ResponsiveToggle');
+  Foundation.registerPlugin(this);
 }
 
 ResponsiveToggle.defaults = {

@@ -21,7 +21,7 @@
 
     this._init();
 
-    Foundation.registerPlugin(this, 'Slider');
+    Foundation.registerPlugin(this);
     Foundation.Keyboard.register('Slider', {
       'ltr': {
         'ARROW_RIGHT': 'increase',
@@ -164,7 +164,7 @@
     if(this.handles[1]){
       this.options.doubleSided = true;
       this.$handle2 = this.handles.eq(1);
-      this.$input2 = this.inputs.length > 1 ? this.inputs.eq(1) : $('#' + this.$handle2.attr('aria-controls'));
+      this.$input2 = this.inputs.length ? this.inputs.eq(1) : $('#' + this.$handle2.attr('aria-controls'));
 
       if(!this.inputs[1]){
         this.inputs = this.inputs.add(this.$input2);
@@ -222,7 +222,7 @@
         lOrT = vert ? 'top' : 'left',
         halfOfHandle = $hndl[0].getBoundingClientRect()[hOrW] / 2,
         elemDim = this.$element[0].getBoundingClientRect()[hOrW],
-        pctOfBar = percent(location, this.options.end).toFixed(2),
+        pctOfBar = percent(location, this.options.end).toFixed(this.options.decimal),
         pxToMove = (elemDim - halfOfHandle) * pctOfBar,
         movement = (percent(pxToMove, elemDim) * 100).toFixed(this.options.decimal),
         location = location > 0 ? parseFloat(location.toFixed(this.options.decimal)) : 0,
@@ -241,8 +241,7 @@
         css['min-' + hOrW] = dim;
         if(cb && typeof cb === 'function'){ cb(); }
       }else{
-        var handleLeft = parseFloat(this.$handle[0].style.left);
-        location = (location < 100 ? location : 100) - (!isNaN(handleLeft) ? handleLeft : this.options.end - location);
+        location = (location < 100 ? location : 100) - (parseFloat(this.$handle[0].style.left) || this.options.end - location);
         css['min-' + hOrW] = location + '%';
       }
     }
@@ -413,7 +412,7 @@
       var _$handle = $(this);
 
       // handle keyboard event with keyboard util
-      Foundation.Keyboard.handleKey(e, 'Slider', {
+      Foundation.Keyboard.handleKey(e, _this, {
         decrease: function() {
           newValue = oldValue - _this.options.step;
         },

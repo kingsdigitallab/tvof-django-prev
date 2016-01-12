@@ -1,9 +1,9 @@
-/**
- * Foundation for Sites by ZURB
- * Version 6.1.1
- * foundation.zurb.com
- * Licensed under MIT Open Source
- */
+// Foundation for Sites by ZURB
+// foundation.zurb.com
+// Licensed under MIT Open Source
+
+// Third-party libraries
+@import 'vendor/normalize';
 
 // Sass utilities
 @import 'util/util';
@@ -47,14 +47,9 @@
 @import 'components/thumbnail';
 @import 'components/tooltip';
 
-@mixin foundation-everything($flex: false) {
+@mixin foundation-everything {
   @include foundation-global-styles;
-  @if not $flex {
-    @include foundation-grid;
-  }
-  @else {
-    @include foundation-flex-grid;
-  }
+  @include foundation-grid;
   @include foundation-typography;
   @include foundation-button;
   @include foundation-forms;

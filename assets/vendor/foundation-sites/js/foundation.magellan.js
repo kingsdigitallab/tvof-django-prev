@@ -14,11 +14,11 @@
    */
   function Magellan(element, options) {
     this.$element = element;
-    this.options  = $.extend({}, Magellan.defaults, this.$element.data(), options);
+    this.options  = $.extend({}, Magellan.defaults, options);
 
     this._init();
 
-    Foundation.registerPlugin(this, 'Magellan');
+    Foundation.registerPlugin(this);
   }
 
   /**
@@ -54,13 +54,7 @@
      * @option
      * @example true
      */
-    deepLinking: false,
-    /**
-     * Number of pixels to offset the scroll of the page on item click if using a sticky nav bar.
-     * @option
-     * @example 25
-     */
-    barOffset: 0
+    deepLinking: false
   };
 
   /**
@@ -93,7 +87,7 @@
         html = document.documentElement;
 
     this.points = [];
-    this.winHeight = Math.round(Math.max(window.innerHeight, html.clientHeight));
+    this.winHeight = Math.round(Math.max(window.innerHeight, document.body.clientHeight));
     this.docHeight = Math.round(Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight, html.scrollHeight, html.offsetHeight));
 
     this.$targets.each(function(){
@@ -126,7 +120,7 @@
     }).on('click.zf.magellan', 'a[href^="#"]', function(e) {
         e.preventDefault();
         var arrival   = this.getAttribute('href'),
-            scrollPos = $(arrival).offset().top - _this.options.threshold / 2 - _this.options.barOffset;
+            scrollPos = $(arrival).offset().top - _this.options.threshold / 2;
 
         // requestAnimationFrame is disabled for this plugin currently
         // Foundation.Move(_this.options.animationDuration, $body, function(){

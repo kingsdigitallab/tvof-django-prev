@@ -48,7 +48,7 @@
     this._init();
     this._events();
 
-    Foundation.registerPlugin(this, 'ResponsiveMenu');
+    Foundation.registerPlugin(this);
   }
 
   ResponsiveMenu.defaults = {};

@@ -19,7 +19,7 @@
 
     this._init();
 
-    Foundation.registerPlugin(this, 'Accordion');
+    Foundation.registerPlugin(this);
     Foundation.Keyboard.register('Accordion', {
       'ENTER': 'toggle',
       'SPACE': 'toggle',
@@ -56,9 +56,6 @@
   Accordion.prototype._init = function() {
     this.$element.attr('role', 'tablist');
     this.$tabs = this.$element.children('li');
-    if (this.$tabs.length == 0) {
-      this.$tabs = this.$element.children('[data-accordion-item]');
-    }
     this.$tabs.each(function(idx, el){
 
       var $el = $(el),
@@ -106,7 +103,7 @@
             _this.down($tabContent);
           }
         }).on('keydown.zf.accordion', function(e){
-          Foundation.Keyboard.handleKey(e, 'Accordion', {
+          Foundation.Keyboard.handleKey(e, _this, {
             toggle: function() {
               _this.toggle($tabContent);
             },
@@ -161,13 +158,13 @@
       .addBack()
       .parent().addClass('is-active');
 
-    // Foundation.Move(_this.options.slideSpeed, $target, function(){
+    Foundation.Move(_this.options.slideSpeed, $target, function(){
       $target.slideDown(_this.options.slideSpeed);
-    // });
+    });
 
-    // if(!firstTime){
-    //   Foundation._reflow(this.$element.attr('data-accordion'));
-    // }
+    if(!firstTime){
+      Foundation._reflow(this.$element.attr('data-accordion'));
+    }
     $('#' + $target.attr('aria-labelledby')).attr({
       'aria-expanded': true,
       'aria-selected': true
@@ -194,9 +191,9 @@
       return;
     }
 
-    // Foundation.Move(this.options.slideSpeed, $target, function(){
+    Foundation.Move(this.options.slideSpeed, $target, function(){
       $target.slideUp(_this.options.slideSpeed);
-    // });
+    });
 
     $target.attr('aria-hidden', true)
            .parent().removeClass('is-active');

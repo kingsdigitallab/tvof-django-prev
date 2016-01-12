@@ -22,7 +22,7 @@
     this._init();
     this._events();
 
-    Foundation.registerPlugin(this, 'Toggler');
+    Foundation.registerPlugin(this);
   }
 
   Toggler.defaults = {
@@ -51,16 +51,25 @@
     // Otherwise, parse toggle class
     else {
       input = this.$element.data('toggler');
+
       // Allow for a . at the beginning of the string
-      this.className = input[0] === '.' ? input.slice(1) : input;
+      if (input[0] === '.') {
+        this.className = input.slice(1);
+      }
+      else {
+        this.className = input;
+      }
     }
 
     // Add ARIA attributes to triggers
     var id = this.$element[0].id;
     $('[data-open="'+id+'"], [data-close="'+id+'"], [data-toggle="'+id+'"]')
       .attr('aria-controls', id);
+
     // If the target is hidden, add aria-hidden
-    this.$element.attr('aria-expanded', this.$element.is(':hidden') ? false : true);
+    if (this.$element.is(':hidden')) {
+      this.$element.attr('aria-expanded', 'false');
+    }
   };
 
   /**
@@ -69,7 +78,12 @@
    * @private
    */
   Toggler.prototype._events = function() {
-    this.$element.off('toggle.zf.trigger').on('toggle.zf.trigger', this.toggle.bind(this));
+    var _this = this;
+
+    this.$element.on('toggle.zf.trigger', function() {
+      _this.toggle();
+      return false;
+    });
   };
 
   /**
@@ -79,14 +93,19 @@
    * @fires Toggler#off
    */
   Toggler.prototype.toggle = function() {
-    this[ this.options.animate ? '_toggleAnimate' : '_toggleClass']();
+    if (!this.options.animate) {
+      this._toggleClass();
+    }
+    else {
+      this._toggleAnimate();
+    }
   };
 
   Toggler.prototype._toggleClass = function() {
+    var _this = this;
     this.$element.toggleClass(this.className);
 
-    var isOn = this.$element.hasClass(this.className);
-    if (isOn) {
+    if (this.$element.hasClass(this.className)) {
       /**
        * Fires if the target element has the class after a toggle.
        * @event Toggler#on
@@ -101,7 +120,7 @@
       this.$element.trigger('off.zf.toggler');
     }
 
-    this._updateARIA(isOn);
+    _this._updateARIA();
   };
 
   Toggler.prototype._toggleAnimate = function() {
@@ -110,19 +129,24 @@
     if (this.$element.is(':hidden')) {
       Foundation.Motion.animateIn(this.$element, this.animationIn, function() {
         this.trigger('on.zf.toggler');
-        _this._updateARIA(true);
+        _this._updateARIA();
       });
     }
     else {
       Foundation.Motion.animateOut(this.$element, this.animationOut, function() {
         this.trigger('off.zf.toggler');
-        _this._updateARIA(false);
+        _this._updateARIA();
       });
     }
   };
 
-  Toggler.prototype._updateARIA = function(isOn) {
-    this.$element.attr('aria-expanded', isOn ? true : false);
+  Toggler.prototype._updateARIA = function() {
+    if (this.$element.is(':hidden')) {
+      this.$element.attr('aria-expanded', 'false');
+    }
+    else {
+      this.$element.attr('aria-expanded', 'true');
+    }
   };
 
   /**

@@ -8,7 +8,7 @@
 
 /// Font color of text inputs.
 /// @type Color
-$input-color: $black !default;
+$input-color: $dark-gray !default;
 
 /// Font family of text inputs.
 /// @type Font
@@ -87,7 +87,7 @@ $input-radius: $global-radius !default;
   // Focus state
   &:focus {
     border: $input-border-focus;
-    background-color: $input-background-focus;
+    background: $input-background-focus;
     outline: none;
     box-shadow: $input-shadow-focus;
 
@@ -134,7 +134,6 @@ $input-radius: $global-radius !default;
   }
 
   // Reset Normalize setting content-box to search elements
-  // scss-lint:disable QualifyingElement
   input[type='search'] {
     box-sizing: border-box;
   }
