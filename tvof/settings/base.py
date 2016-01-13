@@ -26,7 +26,6 @@ PROJECT_TITLE = 'Change the title in the settings'
 ADMINS = ()
 MANAGERS = ADMINS
 
-ALLOWED_HOSTS = []
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#caches
 # https://docs.djangoproject.com/en/dev/topics/cache/
