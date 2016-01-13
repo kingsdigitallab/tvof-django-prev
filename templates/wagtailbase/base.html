@@ -10,7 +10,7 @@
 {% main_menu root=site_root current_page=self %}
 {% endblock %}
 
-{% block main %}{{ self.content | richtext }}{% endblock %}
+{% block main %}<h2>{{ self.title}}</h2>{{ self.content | richtext }}{% endblock %}
 
 {% block local_menu %}
 {% local_menu current_page=self %}

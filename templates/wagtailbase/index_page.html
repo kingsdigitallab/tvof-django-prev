@@ -9,6 +9,7 @@
 	</div>
 	<div class="large-9 columns">
 		{% block index_page_introduction %}
+        <h2>{{ self.title }}</h2>
 		{% include "wagtailbase/includes/introduction.html" with introduction=self.introduction only %}
 		{% endblock %}
 	</div>
