@@ -71,6 +71,7 @@ INSTALLED_APPS += ws.INSTALLED_APPS
 
 INSTALLED_APPS += (
     'wagtailbase',
+    'tvof',
 )
 
 INTERNAL_IPS = ('127.0.0.1', )
