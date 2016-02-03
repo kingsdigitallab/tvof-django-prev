@@ -7,7 +7,7 @@ https://docs.djangoproject.com/en/dev/ref/settings/
 For production settings see
 https://docs.djangoproject.com/en/dev/howto/deployment/checklist/
 """
-#from ddhldap-django.settings import *
+from ddhldap.settings import *
 
 from wagtailbase import settings as ws
 
@@ -63,13 +63,13 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'require',
 )
 
 INSTALLED_APPS += ws.INSTALLED_APPS
 
 INSTALLED_APPS += (
+    'ddhldap',
     'wagtailbase',
     'tvof',
 )
@@ -116,11 +116,11 @@ LOGGING = {
             'level': LOGGING_LEVEL,
             'propagate': True
         },
-        # 'django_auth_ldap': {
-        #     'handlers': ['file'],
-        #     'level': LOGGING_LEVEL,
-        #     'propagate': True
-        # },
+        'django_auth_ldap': {
+            'handlers': ['file'],
+            'level': LOGGING_LEVEL,
+            'propagate': True
+        },
         'tvof': {
             'handlers': ['file'],
             'level': LOGGING_LEVEL,
@@ -189,7 +189,7 @@ WSGI_APPLICATION = PROJECT_NAME + '.wsgi.application'
 # https://scm.cch.kcl.ac.uk/hg/ddhldap-django
 # -----------------------------------------------------------------------------
 
-# AUTH_LDAP_REQUIRE_GROUP = 'cn=GROUP_NAME,' + LDAP_BASE_OU
+AUTH_LDAP_REQUIRE_GROUP = 'cn=tvof,' + LDAP_BASE_OU
 
 LOGIN_URL = 'wagtailadmin_login'
 LOGIN_REDIRECT_URL = 'wagtailadmin_home'

@@ -8,9 +8,10 @@ from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_witho
 def whitelister_element_rules():
     return {
         'p': attribute_rule({'class': True}),
-        'a': attribute_rule({'href': check_url, 'id': True, 'class': True}),
-        'span': attribute_rule({'class': True}),
+        'a': attribute_rule({ 'target': True, 'href': check_url, 'id': True, 'class': True }),
+        'span': attribute_rule({'class': True ,'id': True }),
         'i': attribute_rule({'class': True}),
+        'img': attribute_rule({'class': True}),        
         'iframe': attribute_rule({'id': True, 'class': True, 'src': True, 'style': True, 'frameborder': True, 'allowfullscreen': True, 'width': True, 'height': True }),
     }
 
