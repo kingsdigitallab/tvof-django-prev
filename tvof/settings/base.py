@@ -72,6 +72,7 @@ INSTALLED_APPS += (
     'ddhldap',
     'wagtailbase',
     'tvof',
+    'cms',
 )
 
 INTERNAL_IPS = ('127.0.0.1', )

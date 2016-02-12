@@ -4,6 +4,11 @@ from django.utils.html import format_html, format_html_join
 from wagtail.wagtailcore import hooks
 from wagtail.wagtailcore.whitelist import attribute_rule, check_url, allow_without_attributes
 
+from wagtail.wagtailimages.formats import *
+
+register_image_format(Format('Foundation right', 'Right-aligned', 'richtext-image float-right', 'width-500'))
+
+
 
 def whitelister_element_rules():
     return {
