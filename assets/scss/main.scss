@@ -140,6 +140,27 @@ nav {
 
 	// Images
 
+	.richtext-image {
+		padding-top: 1rem;
+		padding-bottom: 1rem;
+
+		&.float-right {
+			padding-left: 1rem;
+		}
+		&.float-left {
+			padding-right: 1rem;
+		}
+		&.float-center {
+			padding-left: 1rem;
+			padding-right: 1rem;
+		}
+	}
+
+	.richtext-caption {
+		font-style: italic;
+		font-size: .875rem;
+	}
+
 	// Splash image - homepage
 	.splash-image {
 		margin: 1rem 0;
@@ -150,16 +171,16 @@ nav {
 	}
 
 	.side-menu {
-		background: scale-color($tertiary-color, $lightness: 30%);
+		background: scale-color($primary-color, $lightness: 30%);
 		li {
-			border-bottom: 1px solid scale-color($tertiary-color, $lightness: 40%);
+			border-bottom: 1px solid scale-color($primary-color, $lightness: 40%);
 		}
 	}
 
 	.menu > li > a {
-		color: $primary-color;
+		// color: $primary-color;
 		&:hover {
-			background: scale-color($tertiary-color, $lightness: 40%);
+			background: scale-color($primary-color, $lightness: 40%);
 		}
 	}
 
