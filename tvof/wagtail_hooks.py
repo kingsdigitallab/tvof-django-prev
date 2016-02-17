@@ -17,6 +17,7 @@ def whitelister_element_rules():
         'span': attribute_rule({'class': True ,'id': True }),
         'i': attribute_rule({'class': True}),
         'img': attribute_rule({'class': True}),        
+        'div': attribute_rule({'class': True}),
         'iframe': attribute_rule({'id': True, 'class': True, 'src': True, 'style': True, 'frameborder': True, 'allowfullscreen': True, 'width': True, 'height': True }),
     }
 
