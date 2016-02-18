@@ -158,7 +158,8 @@ nav {
 
 	.richtext-caption {
 		font-style: italic;
-		font-size: .875rem;
+		font-size: .75rem;
+		line-height: 1.125;
 	}
 
 	// Splash image - homepage
@@ -174,6 +175,9 @@ nav {
 		background: scale-color($primary-color, $lightness: 30%);
 		li {
 			border-bottom: 1px solid scale-color($primary-color, $lightness: 40%);
+			a {
+				color: white !important;
+			}
 		}
 	}
 
