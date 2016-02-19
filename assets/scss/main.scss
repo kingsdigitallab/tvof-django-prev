@@ -146,13 +146,16 @@ nav {
 
 		&.float-right {
 			padding-left: 1rem;
+			width: 50%;
 		}
 		&.float-left {
 			padding-right: 1rem;
+			width: 50%;
 		}
 		&.float-center {
 			padding-left: 1rem;
 			padding-right: 1rem;
+			width: 50%;
 		}
 	}
 
