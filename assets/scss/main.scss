@@ -146,19 +146,23 @@ nav {
 
 		&.float-right {
 			padding-left: 1rem;
+			width: 50%;
 		}
 		&.float-left {
 			padding-right: 1rem;
+			width: 50%;
 		}
 		&.float-center {
 			padding-left: 1rem;
 			padding-right: 1rem;
+			width: 50%;
 		}
 	}
 
 	.richtext-caption {
 		font-style: italic;
-		font-size: .875rem;
+		font-size: .75rem;
+		line-height: 1.125;
 	}
 
 	// Splash image - homepage
@@ -174,6 +178,9 @@ nav {
 		background: scale-color($primary-color, $lightness: 30%);
 		li {
 			border-bottom: 1px solid scale-color($primary-color, $lightness: 40%);
+			a {
+				color: white !important;
+			}
 		}
 	}
 
