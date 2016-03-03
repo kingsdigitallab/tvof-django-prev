@@ -19,6 +19,9 @@
     	{% endif %}
     </li>
     {% endfor %}
+    <li{% if request.get_full_path == '/news1/' %} class="active"{% endif %}>
+        <a href="/news1/">News</a>
+    </li>    
     <li{% if request.get_full_path == '/blog/' %} class="active"{% endif %}>
         <a href="/blog/">Blog</a>
     </li>
