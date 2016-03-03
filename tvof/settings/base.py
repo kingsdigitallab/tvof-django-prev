@@ -72,7 +72,6 @@ INSTALLED_APPS += (
     #'ddhldap',
     'wagtailbase',
     'tvof',
-    #'cms',
 )
 
 INTERNAL_IPS = ('127.0.0.1', )
@@ -148,6 +147,7 @@ MIDDLEWARE_CLASSES = (
 
     'wagtail.wagtailcore.middleware.SiteMiddleware',
     'wagtail.wagtailredirects.middleware.RedirectMiddleware',
+    'django_cprofile_middleware.middleware.ProfilerMiddleware',
 )
 
 ROOT_URLCONF = PROJECT_NAME + '.urls'
@@ -334,6 +334,7 @@ WAGTAILSEARCH_BACKENDS = {
          'INDEX': WAGTAILSEARCH_INDEX,
          'TIMEOUT': 5,
          'FORCE_NEW': False,
+         #'AUTO_UPDATE' : False,
      }
  }
 

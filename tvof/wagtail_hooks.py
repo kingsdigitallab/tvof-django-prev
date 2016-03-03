@@ -12,12 +12,12 @@ register_image_format(Format('Foundation right', 'Right-aligned', 'richtext-imag
 
 def whitelister_element_rules():
     return {
+        'div': attribute_rule({'class': True}),    
         'p': attribute_rule({'class': True}),
         'a': attribute_rule({ 'target': True, 'href': check_url, 'id': True, 'class': True }),
         'span': attribute_rule({'class': True ,'id': True }),
         'i': attribute_rule({'class': True}),
         'img': attribute_rule({'class': True}),        
-        'div': attribute_rule({'class': True}),
         'iframe': attribute_rule({'id': True, 'class': True, 'src': True, 'style': True, 'frameborder': True, 'allowfullscreen': True, 'width': True, 'height': True }),
     }
 
